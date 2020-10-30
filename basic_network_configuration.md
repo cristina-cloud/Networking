@@ -66,18 +66,161 @@ nameserver 8.8.8.8
 
 ### How to configure network in RHEL version 7? ###
 
+ ***In EL 7, You can configure the network either manually like version 6 or `nmtui` command***
+ 
+ 
+ 1. Click Edit a connection
+ 
+                           ┌─┤ NetworkManager TUI ├──┐
+                           │                         │
+                           │ Please select an option │
+                           │                         │
+                           │ Edit a connection       │
+                           │ Activate a connection   │
+                           │ Set system hostname     │
+                           │                         │
+                           │ Quit                    │
+                           │                         │
+                           │                    <OK> │
+                           │                         │
+                           └─────────────────────────┘
 
 
+2. Click Add button 
+
+                          │                           │
+                          │ ┌─────────────┐           │
+                          │ │ Ethernet  ↑ │ <Add>     │
+                          │ │   eth0    ▒ │           │
+                          │ │           ▒ │ <Edit...> │
+                          │ │           ▒ │           │
+                          │ │           ▒ │ <Delete>  │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▮ │           │
+                          │ │           ↓ │ <Back>    │
+                          │ └─────────────┘           │
+                          │                           │
+                          └───────────────────────────┘
+ 
+3. Choose type
+              
+                          │ ┌─────────────┐           │
+                          │ │ Ethernet  ↑ │ <Add>     │
+                          │ │   eth0    ▒ │           │
+         ┌──────────────────────┤ New Connection ├──────────────────────┐
+         │                                                              │
+         │ Select the type of connection you wish to create.            │
+         │                                                              │
+         │                        DSL         ↑                         │
+         │                        Ethernet    ▮                         │
+         │                        InfiniBand  ▒                         │
+         │                        Wi-Fi       ▒                         │
+         │                        Bond        ↓                         │
+         │                                                              │
+         │                                            <Cancel> <Create> │
+         │                                                              │
+         └──────────────────────────────────────────────────────────────┘
+
+                          │ └─────────────┘           │
+                          │                           │
 
 
+4. Name the interface name
+```
+   ┌───────────────────────────┤ Edit Connection ├───────────────────────────┐
+   │                                                                        ↑│
+   │         Profile name eth1____________________________________          ▮│
+   │               Device eth1____________________________________          ▒│
+   │                                                                        ▒│
+   │ ═ ETHERNET                                                    <Show>   ▒│
+   │                                                                        ▒│
+   │ = IPv4 CONFIGURATION <Manual>                                 <Hide>   ▒│
+   │            Addresses 100.10.10.10_____________ <Remove>                ▒│
+   │                      <Add...>                                          ▒│
+```  
+  
+-> You can set any name you want on Profile name but the Device name must be existed in real
 
+-> Save and go back to the first option
 
+5. Click Activate a connection
 
+                           ┌─┤ NetworkManager TUI ├──┐
+                           │                         │
+                           │ Please select an option │
+                           │                         │
+                           │ Edit a connection       │
+                           │ Activate a connection   │
+                           │ Set system hostname     │
+                           │                         │
+                           │ Quit                    │
+                           │                         │
+                           │                    <OK> │
+                           │                         │
+                           └─────────────────────────┘
+                           
 
+6. Enter on the interface you just added to activate the interface
 
+                          │                            │
+                          │ ┌───────────┐              │
+                          │ │ Wired   ↑ │ <Deactivate> │
+                          │ │ * eth0  ▒ │              │
+                          │ │   eth1  ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▮ │              │
+                          │ │         ↓ │ <Back>       │
+                          │ └───────────┘              │
+                          │                            │
+                          └────────────────────────────┘
 
+7. After then, you will see the asterisk mark is on the interface you just activated(* = activated)
+ 
+                          │ ┌───────────┐              │
+                          │ │ Wired   ↑ │ <Deactivate> │
+                          │ │   eth0  ▒ │              │
+                          │ │ * eth1  ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▒ │              │
+                          │ │         ▮ │              │
+                          │ │         ↓ │ <Back>       │
+                          │ └───────────┘              │
+                          │                            │
+                          └────────────────────────────┘
 
+8.
 
+```
+ip a
+```
+-> Checking if the address and interface you set has been configured correctly
 
 
 
