@@ -226,8 +226,52 @@ ip a
 
 ### How to configure network in RHEL version 8? ###
 
+```
+nmcli con add con-name ["profile name"] type ethernet ifname ens2 ip4 192.168.2.1/24 gw4 192.168.2.2
+```
+-> You can set anything on the profile name like you set in nmtui
 
+-> gw4 = gateway ipv4
 
+```
+nmcli con up "profile name"
+Connection successfully activated 
+(D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/4555)
+```
+
+-> Active the interface you just made
+
+### How to add DNS server address? ###
+
+```
+nmcli con mod [profile name]ipv4.dns 8.8.8.8
+```
+-> You can just add the address simply
+
+```
+nmcli con mod [profile name] +ipv4.dns 8.8.8.8
+```
+
+-> You can also add an extra address using '+' option
+
+```
+nmcli con mod [profile name] -ipv4.dns 8.8.8.8
+```
+
+-> You can remove the existed address using '-' option
+
+```
+nmcli con add con-name ["profile name"] type ethernet ifname ens2 ip4 192.168.2.55/24 gw4 192.168.2.1 ipv4.dns 192.168.2.1 
+```
+
+-> You can also configure the instance and DNS server address at the same time
+
+### How to set the IPv4 configuration to a manual option? ###
+
+```
+nmcli con add con-name [profile name] type ethernet ifname ens8 ip4 10.2.0.55/24 ipv4.method manual 
+```
+-> It's not going to get an IP address automatically
 
 
 
