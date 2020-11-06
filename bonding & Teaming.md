@@ -83,6 +83,7 @@ Slave queue ID: 0
 each machines.
 
 5. Check the network configuration
+
 ```
 [root ~]# ip a
 3: eth1: <BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast master bond0 state UP qlen 1000
@@ -97,6 +98,7 @@ each machines.
 -> Bonding has been configured well
 
 6. Check if the network works fine
+
 ```
 [root 64~]# ping 10.0.0.65
 PING 10.0.0.65 (10.0.0.65) 56(84) bytes of data.
@@ -149,7 +151,7 @@ Slave queue ID: 0
 
 ## How to create a teaming interface? ##
 
-<Test: Configure team2 on machines 68,69 using ens8+ens9 in activebackup mode (centos 8)>
+<Test: Configure team2 on machines 68, 69 using ens8+ens9 in activebackup mode (centos 8)>
 
 1. Configure teaming on machines 
 
@@ -157,6 +159,7 @@ Slave queue ID: 0
 [root~]nmtui
 ```
 
+```
 1. Edit a connection
                            ┌─┤ NetworkManager TUI ├──┐
                            │                         │
@@ -171,8 +174,9 @@ Slave queue ID: 0
                            │                    <OK> │
                            │                         │
                            └─────────────────────────┘
+```
 
-
+```
 2. Add Team
                           ┌───────────────────────────┐
                           │                           │
@@ -192,7 +196,9 @@ Slave queue ID: 0
          │                                            <Cancel> <Create> │
          │                                                              │
          └──────────────────────────────────────────────────────────────┘
+```
 
+```
 3. Edit profile name and device name
    ┌───────────────────────────┤ Edit Connection ├───────────────────────────┐
    │                                                                        ↑│
@@ -209,8 +215,9 @@ Slave queue ID: 0
    │ │ │                                                  ▒ │ <Delete>      ▒│
    │ │ │                                                  ↓ │               ▒│
    │ │ └────────────────────────────────────────────────────┘               ▒│
-   
-   
+```  
+
+```   
 4.Add team device's slaves
    ┌───────────────────────────┤ Edit Connection ├───────────────────────────┐
    │                                                                        ↑│
@@ -230,7 +237,9 @@ Slave queue ID: 0
    │ │   │                                            <Cancel> <Create> │   ▒│
    │ │ JS│                                                              │   ▒│
    │ │   └──────────────────────────────────────────────────────────────┘   ▒│
-   
+```
+
+```   
 5.Edit slave device's name
    ┌─┌─────────────────────────┤ Edit Connection ├──────────────────────────┐
    │ │                                                                      │
@@ -254,8 +263,10 @@ Slave queue ID: 0
    │ │                                                                      │
    │ │                                                                      │
    └─└──────────────────────────────────────────────────────────────────────┘
+```
 -> Do the same thing on the other slave device
 
+```
 6. Edit JSON configuration
    ┌───────────────────────────┤ Edit Connection ├───────────────────────────┐
    │                                                                        ↑│
@@ -279,14 +290,20 @@ Slave queue ID: 0
    │ ═ IPv4 CONFIGURATION <Automatic>                              <Show>   ▒│
    │                                                                        ↓│
    └─────────────────────────────────────────────────────────────────────────┘
+```
+
 
 7. Write the JSON code
+
+```
 {"runner": {"name": "activebackup"}}
 ~
 ~
 ~
 :wq
+```
 
+```
 8.Save the setting
    ┌───────────────────────────┤ Edit Connection ├───────────────────────────┐
    │                                                                        ↑│
@@ -310,7 +327,9 @@ Slave queue ID: 0
    │ │ <Edit...>                                                            ▒│
    │                                                                        ↓│
    └─────────────────────────────────────────────────────────────────────────┘
+```
 
+```
 9. Activate team device
 
                        ┌──────────────────────────────────┐
@@ -335,12 +354,16 @@ Slave queue ID: 0
                        │ └─────────────────┘              │
                        │                                  │
                        └──────────────────────────────────┘
+```   
+                
 10. Check the state 
+
 ```
 teamdctl team0 state
 ```
 
 11. Check the teaming interface
+
 ```
 [root ~]# cd /etc/sysconfig/network-scripts/
 [root network-scripts]# cat ifcfg-eth1
@@ -354,6 +377,7 @@ TEAM_MASTER_UUID=8c14ea35-1fe9-4865-a955-5909cab49bef
 ```
 
 12. Check the interface
+
 ```
 [root network-scripts]# cat ifcfg-eth2
 NAME=eth2
@@ -366,8 +390,9 @@ TEAM_MASTER_UUID=8c14ea35-1fe9-4865-a955-5909cab49bef
 ```
 
 13. Check the interface
+
 ```
-[root@fastvm-centos-7-8-67 network-scripts]# cat ifcfg-team0
+[root network-scripts]# cat ifcfg-team0
 PROXY_METHOD=none
 BROWSER_ONLY=no
 BOOTPROTO=none
