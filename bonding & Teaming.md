@@ -303,6 +303,20 @@ Slave queue ID: 0
 :wq
 ```
 
+8. Add IPv4 configuration
+
+```
+   │ │ JSON configuration                                                   ▒│
+   │ │   {"runner": {"name": "activebackup"}}                               ▒│
+   │ │                                                                      ▒│
+   │ │ <Edit...>                                                            ▒│
+   │ └                                                                      ▒│
+   │                                                                        ▒│
+   │ ╤ IPv4 CONFIGURATION <Manual>                                 <Hide>   ▒│
+   │ │          Addresses 10.0.0.64/24_____________ <Remove>                ▒│
+   │ │                    <Add...>
+```
+
 ```
 8.Save the setting
    ┌───────────────────────────┤ Edit Connection ├───────────────────────────┐
@@ -352,7 +366,19 @@ Slave queue ID: 0
 10. Check the state 
 
 ```
-teamdctl team0 state 
+[root ~]# teamdctl team0 state
+setup:
+  runner: activebackup
+ports:
+  ens8
+    link watches:
+      link summary: up
+      instance[link_watch_0]:
+        name: ethtool
+        link: up
+        down count: 0
+runner:
+  active port: ens9
 ```
 
 11. Check the teaming interface
