@@ -6,7 +6,6 @@
 
 1. Create the configuration file for the first bond interface(bondname)
 ```
-[root ~]# touch /etc/sysconfig/network-scripts/ifcfg-bond0
 [root ~]# vi /etc/sysconfig/network-scripts/ifcfg-bond0
 
 DEVICE=bond0
@@ -32,7 +31,9 @@ USERCTL=no
 MASTER=bond0
 SLAVE=yes
 
-Ifup ifcfg-eth1
+[root ~]# ifup ifcfg-eth1
+bond0: Adding slave eth1
+bond0: Enslaving eth1 as an active interface with an up link
 ```
 -> Don't forget to active the interface, after configuring a bonding network
 
@@ -115,9 +116,10 @@ PING 10.0.0.64 (10.0.0.64) 56(84) bytes of data.
 
 ```
 [root~]# ifenslave -c [bondname][interface name]
-[90745.912467] Bond0: making interface eth2 the new active one
+[90745.912467] [bondname]: making interface [interface name] the new active one
 ```
 -> How to change an active slave to a different one
+
 -> The interface name should be the one you want to set as an active slave in a bonding system
 
 ```
@@ -165,7 +167,7 @@ Slave queue ID: 0
                            │                         │
                            │ Please select an option │
                            │                         │
-                           │ Edit a connection       │
+                           │ *Edit a connection      │
                            │ Activate a connection   │
                            │ Set system hostname     │
                            │                         │
@@ -191,7 +193,7 @@ Slave queue ID: 0
          │                        Bond        ▒                         │
          │                        Bridge      ▮                         │
          │                        IP tunnel   ▒                         │
-         │                        Team        ↓                         │
+         │                        *Team       ↓                         │
          │                                                              │
          │                                            <Cancel> <Create> │
          │                                                              │
@@ -297,9 +299,7 @@ Slave queue ID: 0
 
 ```
 {"runner": {"name": "activebackup"}}
-~
-~
-~
+
 :wq
 ```
 
@@ -314,7 +314,7 @@ Slave queue ID: 0
    │ │ Slaves                                                               ▒│
    │ │ ┌────────────────────────────────────────────────────┐               ▒│
    │ │ │ ens9                                             ↑ │ <Add>         ▒│
-   │ │ │ ens9                                             ▒ │               ▒│
+   │ │ │ ens10                                            ▒ │               ▒│
    │ │ │                                                  ▒ │ <Edit...>     ▒│
    │ │ │                                                  ▒ │               ▒│
    │ │ │                                                  ▮ │ <Delete>      ▒│
@@ -342,13 +342,6 @@ Slave queue ID: 0
                        │ │ * team0       ▒ │              │
                        │ │               ▒ │              │
                        │ │               ▒ │              │
-                       │ │               ▒ │              │
-                       │ │               ▒ │              │
-                       │ │               ▒ │              │
-                       │ │               ▒ │              │
-                       │ │               ▒ │              │
-                       │ │               ▒ │              │
-                       │ │               ▒ │              │
                        │ │               ▮ │              │
                        │ │               ↓ │ <Back>       │
                        │ └─────────────────┘              │
@@ -359,14 +352,13 @@ Slave queue ID: 0
 10. Check the state 
 
 ```
-teamdctl team0 state
+teamdctl team0 state 
 ```
 
 11. Check the teaming interface
 
 ```
-[root ~]# cd /etc/sysconfig/network-scripts/
-[root network-scripts]# cat ifcfg-eth1
+[root ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth1
 NAME=eth1
 UUID=b8b26227-7976-4b88-b48a-b82037af0f62
 DEVICE=eth1
@@ -379,7 +371,7 @@ TEAM_MASTER_UUID=8c14ea35-1fe9-4865-a955-5909cab49bef
 12. Check the interface
 
 ```
-[root network-scripts]# cat ifcfg-eth2
+[root ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth2
 NAME=eth2
 UUID=a6a6d77d-3518-485c-9907-8255107790d2
 DEVICE=eth2
@@ -392,7 +384,7 @@ TEAM_MASTER_UUID=8c14ea35-1fe9-4865-a955-5909cab49bef
 13. Check the interface
 
 ```
-[root network-scripts]# cat ifcfg-team0
+[root ~]# cat /etc/sysconfig/network-scripts/ifcfg-team0
 PROXY_METHOD=none
 BROWSER_ONLY=no
 BOOTPROTO=none
