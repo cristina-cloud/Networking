@@ -33,10 +33,10 @@ sapark ~ $ virsh edit fastvm-centos-8.2-103
 
 ```
 <interface type='network'>
-<mac address='52:54:00:bd:d3:72'/>
+-> <mac address='52:54:00:bd:d3:72'/>
 <source network='empty'/>
 <model type='virtio'/>
-<address type='pci' domain='0x0000' bus='0x00' slot='0x08' function='0x0'/>
+-> <address type='pci' domain='0x0000' bus='0x00' slot='0x08' function='0x0'/>
 ```
 
 5. Save the configuration and start the vm
